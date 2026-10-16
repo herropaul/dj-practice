@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>First beat — DJ practice</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-lesson="1">
+  <div id="gate">
+    <div class="gate-card">
+      <p class="brand">First beat</p>
+      <h1>Practice the hands, then the mix.</h1>
+      <p>Four short lessons. Your songs stay on this computer. The browser will not play sound until you start it.</p>
+      <button id="start" type="button" data-tip="Turn the sound on and begin the lesson that is open.">Start the sound</button>
+    </div>
+  </div>
+
+  <div id="tip" role="tooltip" hidden></div>
+
+  <header class="top">
+    <div>
+      <p class="brand">First beat</p>
+      <p class="tag">A small booth for learning to DJ.</p>
+    </div>
+    <nav class="pips" aria-label="Lessons">
+      <button id="pip-1" type="button" data-lesson="1" data-tip="Tap along to a click.">1</button>
+      <button id="pip-2" type="button" data-lesson="2" data-tip="Play, pause, and cue one song so it starts on the beat.">2</button>
+      <button id="pip-3" type="button" data-lesson="3" data-tip="Play two songs and hand the speakers from one to the other.">3</button>
+      <button id="pip-4" type="button" data-lesson="4" data-tip="Match the tempos and line the kicks up.">4</button>
+    </nav>
+    <button id="reset" type="button" data-tip="Forget lesson progress stored on this computer.">Start over</button>
+  </header>
+
+  <main>
+    <section class="sheet" aria-labelledby="lesson-title">
+      <p id="lesson-kicker" class="kicker">Lesson 1 of 4</p>
+      <h1 id="lesson-title">Tap the beat</h1>
+      <p id="lesson-body"></p>
+      <p id="status" role="status"></p>
+      <button id="continue" type="button" hidden data-tip="Go to the next lesson. Enter does this too, when this button is showing.">Continue</button>
+    </section>
+
+    <div id="lamp-wrap">
+      <div id="lamp" data-tip="This flashes on each click. Tap while it is lit."></div>
+    </div>
+    <section id="tap-panel" class="tap-panel">
+      <p id="streak">0 / 8 on the beat</p>
+      <button id="tap" type="button" data-tip="Tap this on each click. The space bar does the same thing.">Tap <kbd>Space</kbd></button>
+    </section>
+
+    <div class="decks">
+      <section id="deck-a" class="deck deck-a" hidden>
+        <header class="deck-head">
+          <h2>Left song <span>Deck A</span></h2>
+          <p id="name-a" class="track-name">Nothing loaded</p>
+          <p id="bpm-a" class="bpm" data-tip="Beats per minute. This is the tempo the app heard in the low end of the song.">—</p>
+          <p id="time-a" class="time">0:00.0</p>
+        </header>
+        <div class="wave-wrap">
+          <canvas id="wave-a" class="wave"></canvas>
+          <p id="empty-a" class="empty">Load a loop, or a song from this computer.</p>
+        </div>
+        <div class="transport">
+          <button id="play-a" type="button" data-tip="Start the left song, or stop it where it is." aria-keyshortcuts="Q"><span class="label">Play</span> <kbd>Q</kbd></button>
+          <button id="cue-a" type="button" data-tip="Stop and jump back to the first beat, so you can try the start again." aria-keyshortcuts="A">Cue <kbd>A</kbd></button>
+        </div>
+        <div id="samples-a" class="samples"></div>
+        <label class="file" data-tip="Pick a song from this computer. It is not uploaded anywhere.">
+          Load a song
+          <input id="file-a" type="file" accept="audio/*,.mp3,.wav,.ogg,.flac,.m4a,.aac">
+        </label>
+        <div id="tempo-a-wrap" class="tempo-block">
+          <label data-tip="Make the left song slower or faster. The pitch changes with the speed, like a record. The range is 8 percent.">
+            Tempo
+            <input id="tempo-a" type="range" min="-8" max="8" step="0.1" value="0">
+          </label>
+          <p id="tempo-label-a" class="tempo-read">0.0%</p>
+          <div class="nudge">
+            <button id="nudge-a-later" type="button" data-tip="Hold to slow the left song a little, so its kick lands later.">Later <kbd>S</kbd></button>
+            <button id="nudge-a-earlier" type="button" data-tip="Hold to speed the left song a little, so its kick lands sooner.">Sooner <kbd>D</kbd></button>
+          </div>
+        </div>
+        <div class="eq">
+          <label data-tip="Bass. The low thump of the kick. Cut it if the mix is muddy.">
+            Bass
+            <input id="eq-a-low" type="range" min="-12" max="6" step="0.5" value="0">
+            <span id="eq-a-low-value">0 dB</span>
+          </label>
+          <label data-tip="Middle. Where claps and voices sit. Cut it to make room.">
+            Middle
+            <input id="eq-a-mid" type="range" min="-12" max="6" step="0.5" value="0">
+            <span id="eq-a-mid-value">0 dB</span>
+          </label>
+          <label data-tip="Treble. The hiss of hats and the brightness. Too much sounds harsh.">
+            Treble
+            <input id="eq-a-high" type="range" min="-12" max="6" step="0.5" value="0">
+            <span id="eq-a-high-value">0 dB</span>
+          </label>
+        </div>
+      </section>
+
+      <section id="deck-b" class="deck deck-b" hidden>
+        <header class="deck-head">
+          <h2>Right song <span>Deck B</span></h2>
+          <p id="name-b" class="track-name">Nothing loaded</p>
+          <p id="bpm-b" class="bpm" data-tip="Beats per minute. This is the tempo the app heard in the low end of the song.">—</p>
+          <p id="time-b" class="time">0:00.0</p>
+        </header>
+        <div class="wave-wrap">
+          <canvas id="wave-b" class="wave"></canvas>
+          <p id="empty-b" class="empty">Load a loop, or a song from this computer.</p>
+        </div>
+        <div class="transport">
+          <button id="play-b" type="button" data-tip="Start the right song, or stop it where it is." aria-keyshortcuts="P"><span class="label">Play</span> <kbd>P</kbd></button>
+          <button id="cue-b" type="button" data-tip="Stop and jump back to the first beat, so you can try the start again." aria-keyshortcuts="L">Cue <kbd>L</kbd></button>
+        </div>
+        <div id="samples-b" class="samples"></div>
+        <label class="file" data-tip="Pick a song from this computer. It is not uploaded anywhere.">
+          Load a song
+          <input id="file-b" type="file" accept="audio/*,.mp3,.wav,.ogg,.flac,.m4a,.aac">
+        </label>
+        <div id="tempo-b-wrap" class="tempo-block">
+          <label data-tip="Make the right song slower or faster. The pitch changes with the speed, like a record. The range is 8 percent.">
+            Tempo
+            <input id="tempo-b" type="range" min="-8" max="8" step="0.1" value="0">
+          </label>
+          <p id="tempo-label-b" class="tempo-read">0.0%</p>
+          <div class="nudge">
+            <button id="nudge-b-later" type="button" data-tip="Hold to slow the right song a little, so its kick lands later.">Later <kbd>N</kbd></button>
+            <button id="nudge-b-earlier" type="button" data-tip="Hold to speed the right song a little, so its kick lands sooner.">Sooner <kbd>M</kbd></button>
+          </div>
+        </div>
+        <div class="eq">
+          <label data-tip="Bass. The low thump of the kick. Cut it if the mix is muddy.">
+            Bass
+            <input id="eq-b-low" type="range" min="-12" max="6" step="0.5" value="0">
+            <span id="eq-b-low-value">0 dB</span>
+          </label>
+          <label data-tip="Middle. Where claps and voices sit. Cut it to make room.">
+            Middle
+            <input id="eq-b-mid" type="range" min="-12" max="6" step="0.5" value="0">
+            <span id="eq-b-mid-value">0 dB</span>
+          </label>
+          <label data-tip="Treble. The hiss of hats and the brightness. Too much sounds harsh.">
+            Treble
+            <input id="eq-b-high" type="range" min="-12" max="6" step="0.5" value="0">
+            <span id="eq-b-high-value">0 dB</span>
+          </label>
+        </div>
+      </section>
+    </div>
+
+    <section id="cross-panel" class="cross-panel" hidden>
+      <div class="cross-labels"><span>Left song</span><span>Right song</span></div>
+      <input id="cross" type="range" min="0" max="1" step="0.01" value="0" data-tip="Blend the two songs. All the way left is only the left song. All the way right is only the right song.">
+      <p id="cross-label">Hearing the left song only</p>
+    </section>
+
+    <section id="clash-panel" class="clash idle" hidden>
+      <h2 id="clash-title">Why this sounds bad</h2>
+      <p id="clash" role="status"></p>
+    </section>
+
+    <section id="drift" class="drift" hidden>
+      <h2>Stacked beats</h2>
+      <p class="drift-help">Top is the left song. Bottom is the right song. The bright lines are beats. They stack when the songs agree. If the gaps differ, the lines walk apart.</p>
+      <canvas id="drift-canvas"></canvas>
+      <p id="drift-readout" data-tip="Speed gap is how far apart the tempos are. Beat offset is how early or late the right kick is.">Speed gap: — · Beat offset: —</p>
+      <p id="hold" role="status"></p>
+      <button id="sync" type="button" hidden data-tip="Jump the right song onto the left song's tempo and beat. It stayed hidden until you matched them yourself.">Sync the right song <kbd>Y</kbd></button>
+    </section>
+
+    <p id="error" class="error" role="status"></p>
+    <p id="keys" class="keys"></p>
+  </main>
+
+  <footer>
+    <p>Built-in loops are original and public domain (CC0). Songs you load never leave this browser.</p>
+  </footer>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
